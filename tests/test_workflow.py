@@ -62,6 +62,16 @@ class WorkflowTests(unittest.TestCase):
         )
         self.assertEqual(json.loads(result.stdout)["shot_count"], 3)
 
+    def test_summary_text_reports_missing_received_media(self):
+        fixture = ROOT / "examples/inkroom-v6-reference"
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/qa_summary.py"), str(fixture)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertIn("received media missing: S05", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()
