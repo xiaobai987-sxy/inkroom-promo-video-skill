@@ -18,14 +18,22 @@ def main() -> int:
     if not state_path.is_file():
         raise SystemExit(f"state file not found: {state_path}")
     state = json.loads(state_path.read_text(encoding="utf-8"))
+    manifest_path = root / "workflow/manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
     shots = state.get("shots", [])
-    if not shots and (root / "workflow/manifest.json").is_file():
-        manifest = json.loads((root / "workflow/manifest.json").read_text(encoding="utf-8"))
-        shots = manifest.get("shots", []) if isinstance(manifest, dict) else []
+    if not shots and isinstance(manifest, dict):
+        shots = manifest.get("shots", [])
     counts: dict[str, int] = {}
     for shot in shots:
         status = str(shot.get("status", "unknown"))
         counts[status] = counts.get(status, 0) + 1
+    received_missing_files = []
+    for shot in shots:
+        if shot.get("status") not in {"received", "approved"}:
+            continue
+        return_file = shot.get("return_file")
+        if not return_file or not (root / str(return_file)).is_file():
+            received_missing_files.append(str(shot.get("shot_code", "unknown")))
     stale = []
     for name in ("workflow/mvp-handoff.json", "workflow/inkroom-formal-agent-task.json"):
         if (root / name).exists():
@@ -41,6 +49,8 @@ def main() -> int:
         "status": state.get("status"),
         "generation_mode": state.get("generation_mode"),
         "shot_counts": counts,
+        "manifest_source": "workflow/manifest.json" if manifest_path.is_file() else None,
+        "received_missing_files": received_missing_files,
         "artifact_count": len(state.get("artifacts", [])),
         "blockers": state.get("blockers", []),
         "stale_candidates": stale,
