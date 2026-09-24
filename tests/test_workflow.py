@@ -40,6 +40,18 @@ class WorkflowTests(unittest.TestCase):
             )
             self.assertNotEqual(result.returncode, 0)
 
+    def test_fact_lock_requires_explicit_approval(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            project = Path(tmp) / "demo"
+            subprocess.run([sys.executable, str(ROOT / "scripts/init_project.py"), str(project)], check=True, capture_output=True)
+            state = project / "workflow/state.json"
+            result = subprocess.run(
+                [sys.executable, str(ROOT / "scripts/state.py"), "transition", str(state), "--stage", "facts_locked"],
+                capture_output=True,
+                text=True,
+            )
+            self.assertNotEqual(result.returncode, 0)
+
 
 if __name__ == "__main__":
     unittest.main()
