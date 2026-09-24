@@ -63,6 +63,10 @@ def main() -> int:
         print(f"shots={result['shot_counts']} artifacts={result['artifact_count']}")
         if result["blockers"]:
             print("blockers:", "; ".join(result["blockers"]))
+        if result["manifest_source"]:
+            print("manifest:", result["manifest_source"])
+        if result["received_missing_files"]:
+            print("received media missing:", ", ".join(result["received_missing_files"]))
         if stale:
             print("stale candidates:", ", ".join(stale))
     return 0
