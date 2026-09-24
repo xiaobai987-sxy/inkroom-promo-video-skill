@@ -1,0 +1,20 @@
+{
+  "project_id": "inkroom-v6-reference",
+  "version": 1,
+  "film_subject": "Inkroom product",
+  "production_workflow": "behind-the-scenes production",
+  "host": "XiaoMo",
+  "platform": "bilibili",
+  "aspect_ratio": "16:9",
+  "generation_mode": "manual_external",
+  "stage": "awaiting_external_returns",
+  "status": "awaiting_user",
+  "artifacts": [],
+  "approvals": [],
+  "shots": [],
+  "evidence": [],
+  "audio": [],
+  "blockers": ["sanitized fixture has no external media returns"],
+  "release_status": "not_ready",
+  "events": [{"event": "initialized", "at": "2026-01-01T00:00:00Z", "by": "fixture"}]
+}
