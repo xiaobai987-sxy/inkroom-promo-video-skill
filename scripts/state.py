@@ -82,7 +82,13 @@ def transition(path: Path, target: str, approved_by: str | None, note: str | Non
     current = state.get("stage")
     if target not in NEXT.get(current, set()):
         raise ValueError(f"invalid transition {current} -> {target}")
-    review_gate = target.endswith("_review") or target in {"user_render_approval", "publish_ready"}
+    review_gate = target.endswith("_review") or target in {
+        "facts_locked",
+        "seedance_package_ready",
+        "per_shot_approved",
+        "user_render_approval",
+        "publish_ready",
+    }
     if review_gate and not approved_by:
         raise ValueError(f"{target} requires --approved-by")
     state["stage"] = target
