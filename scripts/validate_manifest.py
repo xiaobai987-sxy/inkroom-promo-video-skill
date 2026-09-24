@@ -57,7 +57,9 @@ def main() -> int:
     args = parser.parse_args()
     state = load(args.state)
     root = args.state.parent.parent
-    manifest = load(args.manifest) if args.manifest else state
+    default_manifest = args.state.parent / "manifest.json"
+    manifest_path = args.manifest or (default_manifest if default_manifest.is_file() else None)
+    manifest = load(manifest_path) if manifest_path else state
     shots = manifest.get("shots", []) if isinstance(manifest, dict) else manifest
     errors = []
     if not isinstance(shots, list):
