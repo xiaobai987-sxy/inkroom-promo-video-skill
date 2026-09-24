@@ -25,4 +25,6 @@ python scripts/validate_manifest.py --state /path/to/project/workflow/state.json
 python scripts/qa_summary.py /path/to/project --json
 ```
 
+Use `validate_manifest.py --check-files` before claiming that a received or approved media file exists; the default mode checks only the contract shape.
+
 See `references/` for the state machine, evidence policy, shot contract, Seedance review checklist, HyperFrames rules, and release gate.
