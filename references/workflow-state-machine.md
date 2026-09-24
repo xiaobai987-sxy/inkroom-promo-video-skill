@@ -4,6 +4,8 @@
 
 `workflow/state.json` is the resumable source of truth. Use `scripts/state.py` for mutations so transitions are explicit and append an audit event.
 
+When a project also has `workflow/manifest.json`, reconcile its detailed shot list with `state.json` before reporting progress. A metadata-only `received` record with a missing `return_file` is not an auditable return and must be reported as blocked/missing media.
+
 Minimum shape:
 
 ```json
