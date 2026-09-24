@@ -1,0 +1,25 @@
+name: validate-skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile helpers
+        run: python -m compileall -q scripts
+      - name: Validate sanitized manifest
+        run: python scripts/validate_manifest.py --state examples/inkroom-v6-reference/workflow/state.json --manifest examples/inkroom-v6-reference/workflow/manifest.json --json
+      - name: Summarize sanitized fixture
+        run: python scripts/qa_summary.py examples/inkroom-v6-reference --json
+      - name: Reject committed media and secrets
+        shell: bash
+        run: |
+          test -z "$(git ls-files | grep -Ei '\.(mp4|mov|webm|mp3|wav|png|jpg|jpeg)$' || true)"
+          ! git grep -n -E '(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)'
