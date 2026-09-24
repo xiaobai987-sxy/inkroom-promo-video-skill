@@ -1,0 +1,7 @@
+interface:
+  display_name: "Inkroom Promo Video"
+  short_description: "Build Inkroom promo videos end to end"
+  default_prompt: "Use $inkroom-promo-video to run the Inkroom product-video workflow with explicit review gates."
+
+policy:
+  allow_implicit_invocation: true
