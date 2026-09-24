@@ -52,6 +52,16 @@ class WorkflowTests(unittest.TestCase):
             )
             self.assertNotEqual(result.returncode, 0)
 
+    def test_manifest_is_auto_discovered_next_to_state(self):
+        fixture = ROOT / "examples/inkroom-v6-reference"
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts/validate_manifest.py"), "--state", str(fixture / "workflow/state.json"), "--json"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(json.loads(result.stdout)["shot_count"], 3)
+
 
 if __name__ == "__main__":
     unittest.main()
