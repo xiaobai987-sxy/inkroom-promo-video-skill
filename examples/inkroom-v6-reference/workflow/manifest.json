@@ -1,0 +1,48 @@
+{
+  "schema": "inkroom.promo.shots.v1",
+  "project_id": "inkroom-v6-reference",
+  "shots": [
+    {
+      "shot_code": "S01",
+      "kind": "seedance",
+      "status": "planned",
+      "take": null,
+      "voiceover": "大家好，我是小墨。",
+      "duration_target_s": 4.2,
+      "first_frame": "seedance/first-frames/S01_first.png",
+      "prompt": "seedance/prompts/S01.md",
+      "return_file": null,
+      "approved_source": null,
+      "sha256": null,
+      "review_findings": []
+    },
+    {
+      "shot_code": "MCP-RECORDING",
+      "kind": "placeholder",
+      "status": "placeholder",
+      "take": null,
+      "voiceover": "在支持的 Agent 工作台里，",
+      "duration_target_s": 3.0,
+      "first_frame": null,
+      "prompt": null,
+      "return_file": null,
+      "approved_source": null,
+      "sha256": null,
+      "review_findings": ["real recording required"]
+    },
+    {
+      "shot_code": "S05",
+      "kind": "seedance",
+      "status": "received",
+      "take": "take01",
+      "voiceover": "需要更深接入，就用兼容 API。",
+      "duration_target_s": 5.0,
+      "first_frame": "seedance/first-frames/S05_first.png",
+      "prompt": "seedance/prompts/S05.md",
+      "return_file": "seedance/returns/S05_take01.mp4",
+      "approved_source": null,
+      "sha256": null,
+      "review_findings": ["awaiting human review"]
+    }
+  ]
+}
