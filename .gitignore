@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+.pytest_cache/
+renders/
+assets/*.mp4
+assets/*.mov
+assets/*.webm
+assets/*.mp3
+assets/*.wav
+assets/*.png
+assets/*.jpg
+secrets/
+.env
